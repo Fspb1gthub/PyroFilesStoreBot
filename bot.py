@@ -102,8 +102,17 @@ async def start(bot: Client, cmd: Message):
             else:
                 message_ids.append(int(GetMessage.id))
             for i in range(len(message_ids)):
-                await send_media(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
-        
+                await send_media_and_reply(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
+        except Exception as err:
+            await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
+
+
+@Bot.on_message((filters.document | filters.video | filters.audio) & ~filters.chat(Config.DB_CHANNEL))
+async def main(bot: Client, message: Message):
+
+    if message.chat.type == enums.ChatType.PRIVATE:
+
+        await add_user_to_database(bot, message)
 
         if Config.UPDATES_CHANNEL is not None:
             back = await handle_force_sub(bot, message)
