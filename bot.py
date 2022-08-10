@@ -104,7 +104,7 @@ async def start(bot: Client, cmd: Message):
             for i in range(len(message_ids)):
                 await send_media(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
         
-    if message.chat.type == enums.ChatType.PRIVATE:
+   
 
         await add_user_to_database(bot, message)
 
