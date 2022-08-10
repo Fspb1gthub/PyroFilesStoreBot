@@ -104,9 +104,6 @@ async def start(bot: Client, cmd: Message):
             for i in range(len(message_ids)):
                 await send_media(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
         
-   
-
-        await add_user_to_database(bot, message)
 
         if Config.UPDATES_CHANNEL is not None:
             back = await handle_force_sub(bot, message)
